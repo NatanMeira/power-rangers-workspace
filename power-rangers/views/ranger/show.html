@@ -1,0 +1,33 @@
+{{ define "ranger.show" }} {{template "master-top"}}
+
+<main class="container" style="padding-top: 11rem; padding-bottom: 5rem">
+	<div
+		class="col p-5 align-items-center justify-content-center d-flex flex-column h-100 paper"
+	>
+		<div class="row w-100">
+			<div class="col-10">
+				<h1 class="title">Ranger details</h1>
+			</div>
+			<div class="col-2">
+				<a href="/ranger/edit/{{.Ranger.Id}}" class="btn w-100">Edit</a>
+			</div>
+		</div>
+		<div class="row w-100">{{template "ranger.form" .}}</div>
+	</div>
+</main>
+
+{{if .Error}}
+<div
+	class="alert alert-danger alert-dismissible fade show d-flex align-items-center"
+	role="alert"
+>
+	<i class="bi bi-exclamation-triangle-fill"></i>
+	<div class="mx-3">An error occured, try again later</div>
+	<button
+		type="button"
+		class="btn-close"
+		data-bs-dismiss="alert"
+		aria-label="Close"
+	></button>
+</div>
+{{end}} {{template "master-bottom"}} {{end}}

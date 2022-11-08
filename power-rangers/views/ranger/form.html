@@ -1,0 +1,169 @@
+{{ define "ranger.form" }}
+<div class="container">
+	<form action="{{.FormAction}}" method="post">
+		<div class="form-group mt-3">
+			<label for="name">Name</label>
+			<input
+				type="text"
+				class="form-control form-control-lg"
+				id="name"
+				name="Name"
+				placeholder="Enter your ranger name"
+				required
+				value="{{.Ranger.Name}}"
+				{{if
+				eq
+				.Disabled
+				true}}
+				disabled
+				{{end}}
+			/>
+		</div>
+
+		<div class="form-group mt-3">
+			<label for="color">Color</label>
+			<input
+				type="color"
+				class="form-control form-control-lg"
+				id="color"
+				name="Color"
+				onchange="changeHelmetColor()"
+				required
+				value="{{.Ranger.Color}}"
+				{{if
+				eq
+				.Disabled
+				true}}
+				disabled
+				{{end}}
+			/>
+		</div>
+
+		<div class="form-group mt-3">
+			<label for="AnimalFileRef">Animal</label>
+			<div class="d-flex justify-content-between">
+				<label>
+					<input type="radio" name="AnimalFileRef" value="bat.svg" {{if eq
+					.Ranger.AnimalFileRef "bat.svg"}} checked {{end}} {{if eq .Disabled
+					true}} disabled {{end}} />
+					<img src="/assets/img/animals/bat.svg" alt="bat" />
+				</label>
+				<label>
+					<input type="radio" name="AnimalFileRef" value="bear.svg" {{if eq
+					.Ranger.AnimalFileRef "bear.svg"}} checked {{end}} {{if eq .Disabled
+					true}} disabled {{end}}/>
+					<img src="/assets/img/animals/bear.svg" alt="bear" />
+				</label>
+				<label>
+					<input type="radio" name="AnimalFileRef" value="bird.svg" {{if eq
+					.Ranger.AnimalFileRef "bird.svg"}} checked {{end}} {{if eq .Disabled
+					true}} disabled {{end}}/>
+					<img src="/assets/img/animals/bird.svg" alt="bird" />
+				</label>
+				<label>
+					<input type="radio" name="AnimalFileRef" value="dino.svg" {{if eq
+					.Ranger.AnimalFileRef "dino.svg"}} checked {{end}} {{if eq .Disabled
+					true}} disabled {{end}}/>
+					<img src="/assets/img/animals/dino.svg" alt="dino" />
+				</label>
+				<label>
+					<input type="radio" name="AnimalFileRef" value="dino-flyer.svg" {{if
+					eq .Ranger.AnimalFileRef "dino-flyer.svg"}} checked {{end}} {{if eq
+					.Disabled true}} disabled {{end}}/>
+					<img src="/assets/img/animals/dino-flyer.svg" alt="dino flyer" />
+				</label>
+				<label>
+					<input type="radio" name="AnimalFileRef" value="eagle.svg" {{if eq
+					.Ranger.AnimalFileRef "eagle.svg"}} checked {{end}} {{if eq .Disabled
+					true}} disabled {{end}}/>
+					<img src="/assets/img/animals/eagle.svg" alt="eagle" />
+				</label>
+				<label>
+					<input type="radio" name="AnimalFileRef" value="frog.svg" {{if eq
+					.Ranger.AnimalFileRef "frog.svg"}} checked {{end}} {{if eq .Disabled
+					true}} disabled {{end}}/>
+					<img src="/assets/img/animals/frog.svg" alt="frog" />
+				</label>
+				<label>
+					<input type="radio" name="AnimalFileRef" value="mammoth.svg" {{if eq
+					.Ranger.AnimalFileRef "mammoth.svg"}} checked {{end}} {{if eq
+					.Disabled true}} disabled {{end}}/>
+					<img src="/assets/img/animals/mammoth.svg" alt="mammoth" />
+				</label>
+				<label>
+					<input type="radio" name="AnimalFileRef" value="monkey.svg" {{if eq
+					.Ranger.AnimalFileRef "monkey.svg"}} checked {{end}} {{if eq .Disabled
+					true}} disabled {{end}}/>
+					<img src="/assets/img/animals/monkey.svg" alt="monkey" />
+				</label>
+				<label>
+					<input type="radio" name="AnimalFileRef" value="panther.svg" {{if eq
+					.Ranger.AnimalFileRef "panther.svg"}} checked {{end}} {{if eq
+					.Disabled true}} disabled {{end}}/>
+					<img src="/assets/img/animals/panther.svg" alt="panther" />
+				</label>
+				<label>
+					<input type="radio" name="AnimalFileRef" value="t-rex.svg" {{if eq
+					.Ranger.AnimalFileRef "t-rex.svg"}} checked {{end}} {{if eq .Disabled
+					true}} disabled {{end}}/>
+					<img src="/assets/img/animals/t-rex.svg" alt="t-rex" />
+				</label>
+				<label>
+					<input type="radio" name="AnimalFileRef" value="triceratops.svg" {{if
+					eq .Ranger.AnimalFileRef "triceratops.svg"}} checked {{end}} {{if eq
+					.Disabled true}} disabled {{end}}/>
+					<img src="/assets/img/animals/triceratops.svg" alt="triceratops" />
+				</label>
+				<label>
+					<input type="radio" name="AnimalFileRef" value="wolf.svg" {{if eq
+					.Ranger.AnimalFileRef "wolf.svg"}} checked {{end}} {{if eq .Disabled
+					true}} disabled {{end}}/>
+					<img src="/assets/img/animals/wolf.svg" alt="wolf" />
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group mt-3">
+			<label for="HelmetFileRef">Helmet</label>
+			<div class="d-flex justify-content-between">
+				<label class="label-helmet" style="background-color: {{.Ranger.Color}}">
+					<input type="radio" name="HelmetFileRef" value="china.png" {{if eq
+					.Ranger.HelmetFileRef "china.png"}} checked {{end}} {{if eq .Disabled
+					true}} disabled {{end}}/>
+					<img src="/assets/img/helmet/china.png" alt="china" />
+				</label>
+				<label class="label-helmet" style="background-color: {{.Ranger.Color}}">
+					<input type="radio" name="HelmetFileRef" value="espinho.png" {{if eq
+					.Ranger.HelmetFileRef "espinho.png"}} checked {{end}} {{if eq
+					.Disabled true}} disabled {{end}}/>
+					<img src="/assets/img/helmet/espinho.png" alt="espinho" />
+				</label>
+				<label class="label-helmet" style="background-color: {{.Ranger.Color}}">
+					<input type="radio" name="HelmetFileRef" value="japao.png" {{if eq
+					.Ranger.HelmetFileRef "japao.png"}} checked {{end}} {{if eq .Disabled
+					true}} disabled {{end}}/>
+					<img src="/assets/img/helmet/japao.png" alt="japao" />
+				</label>
+				<label class="label-helmet" style="background-color: {{.Ranger.Color}}">
+					<input type="radio" name="HelmetFileRef" value="lotus.png" {{if eq
+					.Ranger.HelmetFileRef "lotus.png"}} checked {{end}} {{if eq .Disabled
+					true}} disabled {{end}}/>
+					<img src="/assets/img/helmet/lotus.png" alt="lotus" />
+				</label>
+				<label class="label-helmet" style="background-color: {{.Ranger.Color}}">
+					<input type="radio" name="HelmetFileRef" value="lotus-2.png" {{if eq
+					.Ranger.HelmetFileRef "lotus-2.png"}} checked {{end}} {{if eq
+					.Disabled true}} disabled {{end}}/>
+					<img src="/assets/img/helmet/lotus-2.png" alt="lotus 2" />
+				</label>
+			</div>
+		</div>
+
+		{{if .FormLabel }}
+		<button type="submit" class="btn btn-primary w-100 mt-5">
+			{{.FormLabel}}
+		</button>
+		{{end}}
+	</form>
+</div>
+{{end}}

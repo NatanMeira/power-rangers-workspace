@@ -1,0 +1,91 @@
+{{ define "home" }} {{template "master-top" .}}
+<main class="home">
+	<div class="container h-100">
+		<div class="row h-100">
+			<div class="col-5 h-100 d-flex flex-column justify-content-center">
+				<div class="row">
+					<div class="col call-action">
+						<div class="row">
+							<h1 class="title">Power Rangers</h1>
+						</div>
+						<div class="row">
+							<p>
+								Welcome to the Power Rangers website. Here you can see all the
+								Power Rangers and their respective powers.
+							</p>
+							<p>
+								You can also create your own Power Ranger and add it to the
+								list.
+							</p>
+							<p>Click on the button below to create your own Power Ranger.</p>
+							<div class="d-flex justify-content-center">
+								<a href="/ranger/new" class="btn call-action-btn">
+									BE A RANGER
+									<i class="bi bi-lightning-fill"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div
+				class="col-7 h-100 d-flex flex-column justify-content-center align-items-center"
+			>
+				<img src="assets/img/power-rangers.png" alt="Ranger" width="500px" />
+			</div>
+		</div>
+	</div>
+</main>
+<main class="list">
+	<div class="container h-100">
+		<div class="row h-100">
+			<div class="col-12">
+				<div class="row">
+					<div class="rangers d-flex justify-content-between">
+						<h1 class="title d-inline">Last added rangers</h1>
+						<a
+							href="/ranger"
+							class="align-self-center"
+							style="margin-right: 5rem"
+							>Ver todos</a
+						>
+					</div>
+				</div>
+				<div class="row mt-5 rangers-grid">
+					{{if .Rangers}} {{range .Rangers}}
+					<a href="/ranger/show/{{.Id}}">
+						<div
+							class="card"
+							style="width: 28rem; background-color: {{.Color}};padding: 5px"
+						>
+							<div class="d-flex justify-content-center" style="height: 23rem">
+								<img
+									src="assets/img/helmet/{{.HelmetFileRef}}"
+									alt="ranger helmet"
+									width="150px"
+								/>
+							</div>
+							<div
+								class="card-body d-flex justify-content-between"
+								style="background-color: #000"
+							>
+								<p class="card-text">{{.Name}}</p>
+								<img
+									src="assets/img/animals/{{.AnimalFileRef}}"
+									alt="ranger icon"
+								/>
+							</div>
+						</div>
+					</a>
+					{{end}} {{else}}
+					<div>
+						<p>No rangers added</p>
+					</div>
+					{{end}}
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+{{template "master-bottom"}} {{end}}

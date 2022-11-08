@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+  db:
+    container_name: db
+    image: postgres:12.9
+    ports:
+      - '5432:5432'
+    networks:
+      - base_network
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    env_file: .env
+
+  power-rangers:
+    container_name: power-rangers
+    image: 'golang:latest'
+    networks:
+      - base_network
+    depends_on:
+      - db
+    ports:
+      - '80:8080'
+    command: sh -c "go install github.com/cosmtrek/air@latest && air"
+    working_dir: ${WORKING_DIR}
+    volumes:
+      - ./power-rangers:${WORKING_DIR}
+    env_file: .env
+
+networks:
+  base_network:
+
+volumes:
+  db_data:
