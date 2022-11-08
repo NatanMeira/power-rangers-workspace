@@ -85,5 +85,5 @@ Feito com 💜 por <a href="https://www.linkedin.com/in/natameira/">Natan Meira<
 [BADGE_GO_VERSION]: https://img.shields.io/badge/Go-v1.19-97B8CF
 [BADGE_BOOTSTRAP]: https://img.shields.io/badge/Bootstrap-v5.1-97B8CF
 [BADGE_GIN]:https://img.shields.io/badge/Gin-v1.8.1-97B8CF
-[BADGE_GORM]:https://img.shields.io/badge/%3C/GORM-v1.24.1-97B8CF
-[BADGE_POSTGRESQL]:https://img.shields.io/badge/%3C/PostgreSQL-v12.9-97B8CF
+[BADGE_GORM]:https://img.shields.io/badge/GORM-v1.24.1-97B8CF
+[BADGE_POSTGRESQL]:https://img.shields.io/badge/PostgreSQL-v12.9-97B8CF
