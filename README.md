@@ -1,6 +1,6 @@
 <h1 align=center>
 
-<img src="https://raw.githubusercontent.com/NatanMeira/power-rangers-workspace/b5e551d585a24bcfae522f0d3fb7337a56b41243/power-rangers/public/assets/img/logo.svg" />
+<img src="https://raw.githubusercontent.com/NatanMeira/power-rangers-workspace/b5e551d585a24bcfae522f0d3fb7337a56b41243/power-rangers/public/assets/img/logo.svg" width="70%"/>
 </h1>
 
 <div align="center">
@@ -23,11 +23,13 @@ Power Rangers é um projeto desenvolvido para fins de estudos da linguagem de pr
 
 ## Web Screenshot
 
-<!-- <div align="center">
-  <img alt="Landing Page" src="https://user-images.githubusercontent.com/38190870/92850302-a6734a80-f3c2-11ea-81c1-3eff00a2bf1a.png" width="300px"/>
-  <img alt="Teacher Form Page" src="https://user-images.githubusercontent.com/38190870/92850305-a7a47780-f3c2-11ea-877e-3843f672bd88.png" width="300px"/>
-  <img alt="Teacher Search" src="https://user-images.githubusercontent.com/38190870/92850309-a96e3b00-f3c2-11ea-84e8-4e7b7b110a34.png" width="300px"/>
-</div> -->
+<div align="center">
+  <img alt="Home" src="https://raw.githubusercontent.com/NatanMeira/power-rangers-workspace/main/doc/image/home.png" width="300px"/>
+  <img alt="All Rangers" src="https://raw.githubusercontent.com/NatanMeira/power-rangers-workspace/main/doc/image/all-rangers.png" width="300px"/>
+  <img alt="Create Ranger" src="https://raw.githubusercontent.com/NatanMeira/power-rangers-workspace/main/doc/image/create.png" width="300px"/>
+  <img alt="Ranger Details" src="https://raw.githubusercontent.com/NatanMeira/power-rangers-workspace/main/doc/image/detail.png" width="300px"/>
+  <img alt="Edit Ranger" src="https://raw.githubusercontent.com/NatanMeira/power-rangers-workspace/main/doc/image/edit.png" width="300px"/>
+</div>
 
 # 🛠 Tecnologias
 Este projeto foi desenvolvido usando as seguintes tecnologias:
