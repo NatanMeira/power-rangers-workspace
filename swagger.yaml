@@ -1,0 +1,2750 @@
+openapi: 3.0.3
+info:
+  title: Swagger Jornada Cirúrgica - OpenAPI 3.0
+  description: |-
+    Swagger contendo a documentação das rotas que são necessárias para o funcionamento da aplicação.
+  contact:
+    email: email-redfox@example.com
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:4000/api
+tags:
+  - name: Médico
+    description: Informações sobre os médicos
+  - name: Hospital
+    description: Informações sobre os hospitais
+  - name: CID
+    description: Informações sobre os CIDs
+  - name: TUSS
+    description: Informações sobre os TUSS
+  - name: Convênio
+    description: Informações sobre os convênio
+  - name: Plano
+    description: Informações sobre os plano
+  - name: Paciente
+    description: Informações sobre os pacientes
+  - name: Cirurgia
+    description: Informações sobre as cirurgias
+  - name: Centro Cirurgico
+    description: Informações sobre os centros cirurgicos
+  - name: Pendencia Cirurgica
+    description: Informações sobre as pendencias cirurgicas
+  - name: Aviso Cirurgico
+    description: Informações sobre os avisos cirúrgicos
+  - name: Documentos da Cirurgia
+    description: Informações sobre os documentos da cirurgia
+  - name: WebHooks
+    description: Informações sobre os webhooks que disponibilizamos para integração
+paths:
+  /doctor/by-cpf/{cpf}:
+    get:
+      tags:
+        - Médico
+      summary: Busca de médicos
+      description: Retorna uma lista de médicos baseada no CPF
+      operationId: getDoctorsByCpf
+      parameters:
+        - name: cpf
+          in: path
+          description: CPF do médico
+          required: true
+          explode: true
+          schema:
+            type: number
+            example: 12345678910
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Doctor'
+  /doctor/by-crm/{crm}:
+    get:
+      tags:
+        - Médico
+      summary: Busca de médicos
+      description: Retorna uma lista de médicos baseada no CRM
+      operationId: getDoctorsByCrm
+      parameters:
+        - name: crm
+          in: path
+          description: CRM do médico
+          required: true
+          explode: true
+          schema:
+            type: number
+            example: 123456
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Doctor'
+  /doctor/{id}:
+    get:
+      tags:
+        - Médico
+      summary: Busca de médicos
+      description: Retorna uma lista de médicos baseada ID
+      operationId: getDoctorsById
+      parameters:
+        - name: id
+          in: path
+          description: ID do médico
+          required: true
+          explode: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Doctor'
+  /doctors:
+    get:
+      tags:
+        - Médico
+      summary: Busca de médicos
+      description: Retorna uma lista paginada de médicos
+      operationId: getDoctors
+      parameters:
+        - name: pageSize
+          in: query
+          description: Qtd de entidades por página
+          required: false
+          explode: true
+          schema:
+            type: number
+            example: 10
+        - name: pageNumber
+          in: query
+          description: Numero da página
+          required: false
+          explode: true
+          schema:
+            type: number
+            example: 1
+        - name: name
+          in: query
+          description: Nome do médico
+          required: false
+          explode: true
+          schema:
+            type: string
+            example: Tanjiro Kamado
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDoctor'
+  /hospitals:
+    get:
+      tags:
+        - Hospital
+      summary: Busca de hospitais
+      description: Retorna uma lista paginada de hospitais
+      operationId: getHospitals
+      parameters:
+        - name: pageSize
+          in: query
+          description: Qtd de elementos por página
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: pageNumber
+          in: query
+          description: Numero da página
+          required: false
+          explode: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedHospital'
+  /cid/{id}:
+    get:
+      tags:
+        - CID
+      summary: Busca de CID
+      description: Retorna um CID pelo seu identificador
+      operationId: getCidById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: identificador do CID
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cid'
+  /cids:
+    get:
+      tags:
+        - CID
+      summary: Busca de CIDs
+      description: Retorna uma lista paginada de CIDs
+      operationId: getCids
+      parameters:
+        - name: description
+          in: query
+          description: descrição do CID
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          description: Qtd de elementos por página
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: pageNumber
+          in: query
+          description: Numero da página
+          required: false
+          explode: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCid'
+  /tuss:
+    get:
+      tags:
+        - TUSS
+      summary: Busca de TUSS
+      description: Retorna uma lista paginada de TUSS
+      operationId: getTuss
+      parameters:
+        - name: pageSize
+          in: query
+          description: Qtd de elementos por página
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: pageNumber
+          in: query
+          description: Numero da página
+          required: false
+          explode: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTuss'
+  /health-insurance:
+    get:
+      tags:
+        - Convênio
+      summary: Busca de Convênio
+      description: Retorna uma lista paginada de convênios
+      operationId: getHealthInsurance
+      parameters:
+        - name: pageNumber
+          in: query
+          description: número da página
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: pageSize
+          in: query
+          description: tamanho da página
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: hospitalId
+          in: query
+          description: identificador do hospital
+          required: false
+          explode: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedHealthInsurance'
+  /plans:
+    get:
+      tags:
+        - Plano
+      summary: Busca de Plano
+      description: Retorna uma lista paginada de planos
+      operationId: getPlans
+      parameters:
+        - name: pageNumber
+          in: query
+          description: número da página
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: pageSize
+          in: query
+          description: tamanho da página
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: hospitalId
+          in: query
+          description: identificador do hospital
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: healthInsuranceId
+          in: query
+          description: identificador do convênio
+          required: false
+          explode: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPlan'
+  /patients:
+    get:
+      tags:
+        - Paciente
+      summary: Busca de Pacientes
+      description: Retorna uma lista paginada de pacientes
+      operationId: getPatientsByParameter
+      parameters:
+        - name: pageNumber
+          in: query
+          description: número da página
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: pageSize
+          in: query
+          description: tamanho da página
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: name
+          in: query
+          description: nome do paciente
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: bornDate
+          in: query
+          description: data de nascimento do paciente
+          required: false
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPatient'
+  /patient/{id}:
+    get:
+      tags:
+        - Paciente
+      summary: Busca de Paciente
+      description: Retorna um paciente
+      operationId: getPatientById
+      parameters:
+        - name: id
+          in: path
+          description: identificador do paciente
+          required: true
+          explode: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+    put:
+      tags:
+        - Paciente
+      summary: Atualização de paciente
+      description: Atualiza um paciente
+      operationId: updatePatient
+      parameters:
+        - name: id
+          in: path
+          description: identificador do paciente
+          required: true
+          explode: true
+          schema:
+            type: number
+      requestBody:
+        description: Atualiza um paciente
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePatient'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+  /patient/by-cpf/{cpf}:
+    get:
+      tags:
+        - Paciente
+      summary: Busca de Paciente
+      description: Retorna um paciente
+      operationId: getPatientByCpf
+      parameters:
+        - name: cpf
+          in: path
+          description: cpf do paciente
+          required: true
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+  /patient/{id}/insurance-card:
+    get:
+      tags:
+        - Paciente
+      summary: Busca de carteira de convênio do paciente
+      description: Retorna uma carteirinha de convênio de acordo com o id do paciente informado
+      operationId: getInsuranceCardByPatientId
+      parameters:
+        - name: id
+          in: path
+          description: identificador do paciente
+          required: true
+          explode: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsuranceCard'
+  /patient/insurance-card:
+    post:
+      tags:
+        - Paciente
+      summary: Criação de carteira de convênio do paciente
+      description: Cria uma carteirinha de convênio para o paciente informado
+      operationId: createInsuranceCard
+      requestBody:
+        description: Cria uma carteirinha de convênio para o paciente informado
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InsuranceCard'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsuranceCard'
+  /patient:
+    post:
+      tags:
+        - Paciente
+      summary: Criação de paciente
+      description: Cria um paciente
+      operationId: createPatient
+      requestBody:
+        description: Cria um paciente
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePatient'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+  /surgeries:
+    get:
+      tags:
+        - Cirurgia
+      summary: Busca de cirurgias
+      description: Retorna uma lista paginada de cirurgias
+      operationId: getSurgeries
+      parameters:
+        - name: description
+          in: query
+          description: Descrição da cirurgia
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          description: Qtd de elementos por página
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: pageNumber
+          in: query
+          description: Numero da página
+          required: false
+          explode: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSurgery'
+  /surgery/{id}:
+    get:
+      tags:
+        - Cirurgia
+      summary: Busca de cirurgia pelo id
+      description: Retorna uma cirurgia
+      operationId: getSurgery
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: identificador da cirurgia
+          explode: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Surgery'
+  /surgery/by-tuss/{tussId}:
+    get:
+      tags:
+        - Cirurgia
+      summary: Busca de cirurgia pelo tussId 
+      description: Retorna uma cirurgia pelo tussId
+      operationId: getSurgeryByTussId
+      parameters:
+        - name: tussId
+          in: path
+          required: true
+          description: identificador do tuss da cirurgia
+          explode: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Surgery'
+  /surgical-centers:
+    get:
+      tags:
+        - Centro Cirurgico
+      summary: Busca de centros cirurgicos
+      description: Retorna uma lista paginada de centros cirurgicos
+      operationId: getSurgicalCenters
+      parameters:
+        - name: name
+          in: query
+          description: Nome do centro cirurgico
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: hospitalId
+          in: query
+          description: Identificador do hospital do centro cirurgico
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: pageSize
+          in: query
+          description: Qtd de elementos por página
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: pageNumber
+          in: query
+          description: Numero da página
+          required: false
+          explode: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSurgicalCenter'
+  /surgical-pendencies:
+    get:
+      tags:
+        - Pendencia Cirurgica
+      summary: Busca de pendencias cirurgicas
+      description: Retorna uma lista paginada de pendencias cirurgicas
+      operationId: getSurgicalPendencies
+      parameters:
+        - name: surgicalOrderId
+          in: query
+          description: Identificador do pedido cirurgico da pendencia cirurgica
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: pageSize
+          in: query
+          description: Qtd de elementos por página
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: pageNumber
+          in: query
+          description: Numero da página
+          required: false
+          explode: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSurgicalPendency'
+  /surgical-pendency:
+    post:
+      tags:
+        - Pendencia Cirurgica
+      summary: Criação de pendencia cirurgica
+      description: Cria uma pendencia cirurgica
+      operationId: createSurgicalPendency
+      requestBody:
+        description: Cria uma pendencia cirurgica
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSurgicalPendency'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurgicalPendency'
+  /surgical-pendency/{id}:  
+    get:
+      tags:
+        - Pendencia Cirurgica
+      summary: Busca de pendencias cirurgicas pelo id
+      description: Retorna uma pendencia cirurgica pelo id
+      operationId: getSurgicalPendencyById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identificador da pendencia cirurgica
+          explode: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurgicalPendency'
+    put:
+      tags:
+        - Pendencia Cirurgica
+      summary: Atualização de pendencia cirurgica
+      description: Atualiza uma pendencia cirurgica
+      operationId: updateSurgicalPendency
+      parameters:
+        - name: id
+          in: path
+          description: identificador de pendencia cirurgica
+          required: true
+          explode: true
+          schema:
+            type: number
+      requestBody:
+        description: Dados para atualizar na pendencia cirurgica
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSurgicalPendency'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurgicalPendency'
+  /surgical-order:
+    post:
+      tags:
+        - Aviso Cirurgico
+      summary: Criação de aviso cirurgico
+      description: Cria um aviso cirurgico
+      operationId: createSurgicalOrder
+      requestBody:
+        description: Cria uma aviso cirurgico
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSurgicalOrder'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurgicalOrder'
+    get:
+      tags:
+        - Aviso Cirurgico
+      summary: Busca de avisos cirurgicos
+      description: Retorna avisos cirurgicos paginados
+      operationId: getSurgicalOrders
+      parameters:
+        - name: begin
+          in: query
+          description: Data de início da busca
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: end
+          in: query
+          description: Data de fim da busca
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: pageSize
+          in: query
+          description: Qtd de elementos por página
+          required: false
+          explode: true
+          schema:
+            type: number
+        - name: pageNumber
+          in: query
+          description: Numero da página
+          required: false
+          explode: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSurgicalOrder'
+  /surgical-order/{id}:
+    get:
+      tags:
+        - Aviso Cirurgico
+      summary: Busca de avisos cirurgicos
+      description: Retorna avisos cirurgicos paginados
+      operationId: getSurgicalOrder
+      parameters:
+        - name: id
+          in: path
+          description: identificador do aviso cirurgico
+          required: true
+          explode: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurgicalOrder'
+    put:
+      tags:
+        - Aviso Cirurgico
+      summary: Atualização de aviso cirurgico
+      description: Atualiza um aviso cirurgico
+      operationId: updateSurgicalOrder
+      parameters:
+        - name: id
+          in: path
+          description: identificador de aviso cirurgico
+          required: true
+          explode: true
+          schema:
+            type: number
+      requestBody:
+        description: Dados para atualizar no aviso cirurgico
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSurgicalOrder'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurgicalOrder'
+  /surgical-order/{id}/cancel:
+    put:
+      tags:
+        - Aviso Cirurgico
+      summary: Cancela um aviso cirurgico
+      description: Cancela um aviso cirurgico
+      operationId: cancelSurgicalOrder
+      parameters:
+        - name: id
+          in: path
+          description: identificador de aviso cirurgico
+          required: true
+          explode: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensagem sobre a operação
+                    example: Aviso cancelado com sucesso
+  /surgical-order/{id}/log-workflow:
+    post:
+      tags:
+        - Aviso Cirurgico
+      summary: Criação de log workflow
+      description: Cria um log workflow
+      operationId: createSurgicalOrderLogWorkflow
+      parameters:
+        - name: id
+          in: path
+          description: identificador de aviso cirurgico
+          required: true
+          explode: true
+          schema:
+            type: number
+      requestBody:
+        description: Cria um log workflow
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLogWorkflow'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogWorkflow'
+  /surgery-document/{id}:
+    get:
+      tags:
+        - Documentos da Cirurgia
+      summary: Busca de documentos da cirurgia
+      description: Busca um documento da cirurgia pelo id, podendo ou não, retornar o base64 do arquivo
+      operationId: getSurgeryDocument
+      parameters:
+        - name: id
+          in: path
+          description: identificador de documento da cirurgia
+          required: true
+          explode: true
+          schema:
+            type: number
+        - name: returnBase64
+          in: query
+          description: retornar ou não, o base 64 do arquivo
+          required: false
+          explode: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/SurgeryDocumentWithoutBase64'
+                  - $ref: '#/components/schemas/SurgeryDocumentWithBase64'
+              examples:
+                success-without-base-64:
+                  $ref: '#/components/examples/SurgeryDocumentWithoutBase64'
+                success-with-base-64:
+                  $ref: '#/components/examples/SurgeryDocumentWithBase64'
+  /surgery-document/by-surgical-order-id/{surgicalOrderId}:
+    get:
+      tags:
+        - Documentos da Cirurgia
+      summary: Busca de documentos da cirurgia
+      description: Busca um documento da cirurgia pelo id do aviso cirurgia, podendo ou não, retornar o base64 do arquivo
+      operationId: getSurgeryDocumentBySurgicalOrderId
+      parameters:
+        - name: surgicalOrderId
+          in: path
+          description: identificador do aviso cirurgia
+          required: true
+          explode: true
+          schema:
+            type: number
+        - name: returnBase64
+          in: query
+          description: retornar ou não, o base 64 do arquivo
+          required: false
+          explode: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              examples:
+                success-without-base-64:
+                  $ref: '#/components/examples/ArrayOfSurgeryDocumentWithoutBase64'
+                success-with-base-64:
+                  $ref: '#/components/examples/ArrayOfSurgeryDocumentWithBase64'
+  /surgery-document/document-types:
+    get:
+      tags:
+        - Documentos da Cirurgia
+      summary: Busca de tipos de documentos da cirurgia
+      description: Busca os tipos de documentos da cirurgia
+      operationId: getSurgeryDocumentTypes
+      parameters:
+        - name: hospitalId
+          in: query
+          description: identificador do hospital
+          required: false
+          explode: false
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfSurgeryDocumentType'
+  /surgery-document:
+    post:
+      tags:
+        - Documentos da Cirurgia
+      summary: Criação de um documento da cirurgia
+      description: Cria uma documento da cirurgia
+      operationId: createSurgeryDocument
+      requestBody:
+        description: Cria uma documento da cirurgia
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSurgeryDocument'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurgeryDocumentWithBase64'
+  /surgical-status/change-surgery-status:
+    post:
+      tags:
+        - WebHooks
+      summary: Alterar Status da Cirurgia
+      description: Alterar Status da Cirurgia
+      operationId: changeSurgeryStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeSurgeryStatus'
+      responses:
+        '200':
+          description: Successful operation
+  /surgical-status/change-surgical-order-status:
+    post:
+      tags:
+        - WebHooks
+      summary: Alterar Status do pedido da cirurgia
+      description: Alterar Status do pedido da cirurgia
+      operationId: changeSurgicalOrderStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeSurgicalOrderStatus'
+      responses:
+        '200':
+          description: Successful operation
+components:
+  schemas:
+    PageInfo:
+      type: object
+      properties:
+        totalItems:
+          type: integer
+          format: int32
+          description: Qtd total de entidades na base
+          example: 1
+        currentPage:
+          type: integer
+          format: int32
+          description: Numero da página atual
+          example: 1
+        itemsPerPage:
+          type: integer
+          format: int32
+          description: Qtd de itens por página
+          example: 1
+    Doctor:
+      type: object
+      properties:
+        active:
+          type: boolean
+          description: Flag que identifica se esse médico esta ativo ou não
+          example: true
+        id:
+          type: integer
+          format: int32
+          description: Identificador do prestador
+          example: 1
+        name:
+          type: string
+          description: Nome do prestador
+          example: Tanjiro Kamado
+        crm:
+          type: string
+          description: CRM do médico
+          example: 123456
+        specialty:
+          type: string
+          description: Especialidade do médico
+          example: PNEUMOLOGIA
+        email:
+          type: string
+          description: Email do médico
+          example: email@example.com
+        cpf:
+          type: string
+          description: CPF do médico
+          example: 12345678910
+        phone:
+          type: string
+          description: Celular do médico
+          example: 11991234567
+        uf:
+          type: string
+          description: Unidade federativa do médico (abreviada)
+          example: SP
+          enum:
+            - AC
+            - AL
+            - AP
+            - AM
+            - BA
+            - CE
+            - DF
+            - ES
+            - GO
+            - MA
+            - MT
+            - MS
+            - MG
+            - PA
+            - PB
+            - PR
+            - PE
+            - PI
+            - RJ
+            - RN
+            - RS
+            - RO
+            - RR
+            - SC
+            - SP
+            - SE
+            - TO
+        createdAt:
+          type: string
+          description: Data de criação do médico
+          example: 2023-01-01T00:00:00
+        updatedAt:
+          type: string
+          description: Data de atualização do médico
+          example: 2023-01-01T00:00:00
+    PaginatedDoctor:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Doctor'
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+    Hospital:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: identificador do hospital
+          example: 1
+        name:
+          type: string
+          description: Nome do hospital
+          example: Redfox - São Paulo
+        nickname:
+          type: string
+          description: Apelido do hospital
+          example: RF-SP
+    PaginatedHospital:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hospital'
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+    Cid:
+      type: object
+      properties:
+        id:
+          type: string
+          description: identificador do CID
+          example: M252
+        description:
+          type: string
+          description: Descrição do CID
+          example: FLAIL JOINT
+    PaginatedCid:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cid'
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+    Tuss:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Identificador do tuss
+          example: 1
+        name:
+          type: string
+          description: Nome do TUSS
+          example: ABLOK
+        productDescription:
+          type: string
+          description: Descrição do TUSS
+          example: ATENOL 50MG COMP - ATENOLOL
+        activePrinciple:
+          type: string
+          description: Princípio ativo do TUSS
+          example: ATENOLOL 50MG COMP
+        healthInsuranceId:
+          type: integer
+          format: int32
+          description: Identificador do convênio
+          example: 1
+        proFatId:
+          type: integer
+          format: int32
+          description: Identificador ProFat
+          example: 1
+    PaginatedTuss:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tuss'
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+    HealthInsurance:
+      type: object
+      properties:
+        healthInsurance:
+          type: object
+          properties:
+            id:
+              type: integer
+              format: int32
+              description: Identificador do convênio
+              example: 1
+            name:
+              type: string
+              description: Nome do convênio
+              example: AMIL
+            ansRegister:
+              type: string
+              description: Registro da ANS
+              example: 1234
+        plans:
+          type: array
+          items:
+            $ref: '#/components/schemas/HealthInsurancePlan'
+    HealthInsurancePlan:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Identificador do plano
+          example: 1
+        name:
+          type: string
+          description: Nome do plano
+          example: 'AMIL 2500 - APARTAMENTO'
+        subPlans:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubPlan'
+    SubPlan:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Identificador do subplano
+          example: 1
+        name:
+          type: string
+          description: Nome do subplano
+          example: 'AMIL ONE S2500 QP'
+        planId:
+          type: integer
+          format: int32
+          description: Identificador do plano
+          example: 1
+    PaginatedHealthInsurance:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HealthInsurance'
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+    Plan:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Identificador do plano
+          example: 1
+        name:
+          type: string
+          description: Nome do plano
+          example: 'AMIL 2500 - APARTAMENTO'
+        hospitalId:
+          type: integer
+          format: int32
+          description: Identificador do hospital
+          example: 1
+        healthInsuranceId:
+          type: integer
+          format: int32
+          description: Identificador do convênio
+          example: 1
+        healthInsuranceName:
+          type: string
+          description: Nome do convênio
+          example: AMIL
+        subPlans:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubPlan'
+    PaginatedPlan:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Plan'
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+    Patient:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Identificador do paciente
+          example: 1
+        name:
+          type: string
+          description: Nome do paciente
+          example: Yuji Itadori
+        socialName:
+          type: string
+          description: Nome social do paciente
+          example: Itadori
+        email:
+          type: string
+          description: Email do paciente
+          example: itadori@yopmail.com
+        sex:
+          type: string
+          description: Sexo do paciente
+          example: M
+          enum:
+            - M
+            - F
+            - I
+            - G
+        maritalStatus:
+          type: string
+          description: Estado civil do paciente
+          example: S
+          enum:
+            - S
+            - C
+            - D
+            - I
+            - V
+            - U
+        bornDate:
+          type: string
+          description: Data de nascimento do paciente
+          example: 2000-01-01T00:00:00
+        fatherName:
+          type: string
+          description: Nome do pai do paciente
+          example: Jin Itadori
+        motherName:
+          type: string
+          description: Nome da mãe do paciente
+          example: Não informado
+        cep:
+          type: string
+          description: CEP
+          example: 03110030
+        neighborhood:
+          type: string
+          description: Bairro
+          example: Mooca
+        street:
+          type: string
+          description: Rua da casa
+          example: Alameda Rubião Júnior
+        houseNumber:
+          type: integer
+          format: int32
+          description: Número da casa
+          example: 1
+        complement:
+          type: string
+          description: Complemento do endereço
+          example: Apto 101 Bl 1
+        rg:
+          type: string
+          description: RG do paciente
+          example: 111111111
+        cpf:
+          type: string
+          description: CPF do paciente
+          example: 08488361548
+        phoneCountryCode:
+          type: integer
+          format: int32
+          description: DDI do telefone do paciente
+          example: 55
+        phoneAreaCode:
+          type: integer
+          format: int32
+          description: DDD do telefone do paciente
+          example: 11
+        phone:
+          type: string
+          description: Telefone do paciente
+          example: 22222222
+        cellPhoneCountryCode:
+          type: integer
+          format: int32
+          description: DDI do celular do paciente
+          example: 55
+        cellPhoneAreaCode:
+          type: integer
+          format: int32
+          description: DDD do celular do paciente
+          example: 11
+        cellPhone:
+          type: string
+          description: Celular do paciente
+          example: 333333333
+        hospitalId:
+          type: integer
+          format: int32
+          description: Hospital em que o paciente esta cadastrado
+          example: 1
+        createdAt:
+          type: string
+          description: Data de criação do paciente
+          example: 2023-01-01T00:00:00
+        insuranceCard:
+          $ref: '#/components/schemas/InsuranceCard'
+    CreatePatient:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nome do paciente
+          example: Yuji Itadori
+        socialName:
+          type: string
+          description: Nome social do paciente
+          example: Itadori
+        email:
+          type: string
+          description: Email do paciente
+          example: itadori@yopmail.com
+        sex:
+          type: string
+          description: Sexo do paciente
+          example: M
+          enum:
+            - M
+            - F
+            - I
+            - G
+        maritalStatus:
+          type: string
+          description: Estado civil do paciente
+          example: S
+          enum:
+            - S
+            - C
+            - D
+            - I
+            - V
+            - U
+        bornDate:
+          type: string
+          description: Data de nascimento do paciente
+          example: 2000-01-01T00:00:00
+        fatherName:
+          type: string
+          description: Nome do pai do paciente
+          example: Jin Itadori
+        motherName:
+          type: string
+          description: Nome da mãe do paciente
+          example: Não informado
+        cep:
+          type: string
+          description: CEP
+          example: 03110030
+        neighborhood:
+          type: string
+          description: Bairro
+          example: Mooca
+        street:
+          type: string
+          description: Rua da casa
+          example: Alameda Rubião Júnior
+        houseNumber:
+          type: integer
+          format: int32
+          description: Número da casa
+          example: 1
+        complement:
+          type: string
+          description: Complemento do endereço
+          example: Apto 101 Bl 1
+        rg:
+          type: string
+          description: RG do paciente
+          example: 111111111
+        cpf:
+          type: string
+          description: CPF do paciente
+          example: 08488361548
+        phoneCountryCode:
+          type: integer
+          format: int32
+          description: DDI do telefone do paciente
+          example: 55
+        phoneAreaCode:
+          type: integer
+          format: int32
+          description: DDD do telefone do paciente
+          example: 11
+        phone:
+          type: string
+          description: Telefone do paciente
+          example: 22222222
+        cellPhoneCountryCode:
+          type: integer
+          format: int32
+          description: DDI do celular do paciente
+          example: 55
+        cellPhoneAreaCode:
+          type: integer
+          format: int32
+          description: DDD do celular do paciente
+          example: 11
+        cellPhone:
+          type: string
+          description: Celular do paciente
+          example: 333333333
+        religionId:
+          type: integer
+          format: int32
+          description: Religião do paciente
+          example: 1
+        hospitalId:
+          type: integer
+          format: int32
+          description: Hospital em que o paciente esta cadastrado
+          example: 1
+    UpdatePatient:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Identificador do paciente
+          example: 1
+        name:
+          type: string
+          description: Nome do paciente
+          example: Yuji Itadori
+        socialName:
+          type: string
+          description: Nome social do paciente
+          example: Itadori
+        email:
+          type: string
+          description: Email do paciente
+          example: itadori@yopmail.com
+        sex:
+          type: string
+          description: Sexo do paciente
+          example: M
+          enum:
+            - M
+            - F
+            - I
+            - G
+        maritalStatus:
+          type: string
+          description: Estado civil do paciente
+          example: S
+          enum:
+            - S
+            - C
+            - D
+            - I
+            - V
+            - U
+        bornDate:
+          type: string
+          description: Data de nascimento do paciente
+          example: 2000-01-01T00:00:00
+        fatherName:
+          type: string
+          description: Nome do pai do paciente
+          example: Jin Itadori
+        motherName:
+          type: string
+          description: Nome da mãe do paciente
+          example: Não informado
+        cep:
+          type: string
+          description: CEP
+          example: 03110030
+        neighborhood:
+          type: string
+          description: Bairro
+          example: Mooca
+        street:
+          type: string
+          description: Rua da casa
+          example: Alameda Rubião Júnior
+        houseNumber:
+          type: integer
+          format: int32
+          description: Número da casa
+          example: 1
+        complement:
+          type: string
+          description: Complemento do endereço
+          example: Apto 101 Bl 1
+        rg:
+          type: string
+          description: RG do paciente
+          example: 111111111
+        cpf:
+          type: string
+          description: CPF do paciente
+          example: 08488361548
+        phoneCountryCode:
+          type: integer
+          format: int32
+          description: DDI do telefone do paciente
+          example: 55
+        phoneAreaCode:
+          type: integer
+          format: int32
+          description: DDD do telefone do paciente
+          example: 11
+        phone:
+          type: string
+          description: Telefone do paciente
+          example: 22222222
+        cellPhoneCountryCode:
+          type: integer
+          format: int32
+          description: DDI do celular do paciente
+          example: 55
+        cellPhoneAreaCode:
+          type: integer
+          format: int32
+          description: DDD do celular do paciente
+          example: 11
+        cellPhone:
+          type: string
+          description: Celular do paciente
+          example: 333333333
+        religionId:
+          type: integer
+          format: int32
+          description: Religião do paciente
+          example: 1
+        hospitalId:
+          type: integer
+          format: int32
+          description: Hospital em que o paciente esta cadastrado
+          example: 1
+    InsuranceCard:
+      type: object
+      properties:
+        healthInsuranceId:
+          type: integer
+          format: int32
+          description: Identificador do convênio
+          example: 1
+        healthInsuranceName:
+          type: string
+          description: Nome do convênio
+          example: AMIL
+        planId:
+          type: integer
+          format: int32
+          description: Identificador do plano
+          example: 1
+        planName:
+          type: string
+          description: Nome do plano
+          example: AMIL 2500 - APARTAMENTO
+        subPlanId:
+          type: integer
+          format: int32
+          description: Identificador do subplano
+          example: 1
+        subPlanName:
+          type: string
+          description: Nome do subplano
+          example: AMIL ONE S2500 QP
+        expirationDate:
+          type: string
+          description: Data de criação do paciente
+          example: 2023-01-01T00:00:00
+        holder:
+          type: string
+          description: Nome do titular do convênio
+          example: Yuji Itadori
+        cardNumber:
+          type: string
+          description: Número da carteirinha do convênio
+          example: 123456
+        patientId:
+          type: integer
+          format: int32
+          description: Identificador do paciente
+          example: 1
+    PaginatedPatient:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Patient'
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+    Surgery:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Identificador da cirurgia
+          example: 1
+        description:
+          type: string
+          description: Descrição da cirurgia
+          example: ABDOME C/DOPPLER OU ARTERIA RENAL
+        type:
+          type: string
+          description: Tipo da cirurgia
+          example: M
+        tussId:
+          type: string
+          description: Identificador do tuss da cirurgia
+          example: 79301003
+        orientation:
+          type: string
+          description: Orientação da cirurgia
+        specialtyId:
+          type: integer
+          format: int32
+          description: Identificador da especialidade da cirurgia
+          example: 1
+        specialtyDescription:
+          type: string
+          description: Descrição da especialidade da cirurgia
+          example: CIRURGIA GERAL
+    PaginatedSurgery:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Surgery'
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+    SurgicalCenter:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Identificador do centro cirurgico
+          example: 1
+        name:
+          type: string
+          description: Nome do centro cirurgico
+          example: CENTRO OBSTÉTRICO
+        hospitalId:
+          type: integer
+          format: int32
+          description: Identificador da hospital do centro cirurgico
+          example: 1
+    PaginatedSurgicalCenter:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SurgicalCenter'
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+    SurgicalPendency:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Identificador da pendencia cirurgica
+          example: 1
+        surgicalOrderId:
+          type: integer
+          format: int32
+          description: Identificador do pedido cirurgico da pendencia cirurgica
+          example: 1
+        number:
+          type: integer
+          format: int32
+          description: Numero da pendencia cirurgica
+          example: 1
+        description:
+          type: string
+          description: Descrição da pendencia cirurgica
+          example: PACIENTE CIENTE EM ENCAMINHAR RELATORIO NUTRICIONISTA COM O TEMPO DE OBESIDADE E TEMPO DE TRATAMENTO CLINICO
+        observation:
+          type: string
+          description: Data de criação da pendencia cirurgica
+          example: SOLUCIONADO
+        isSolved:
+          type: boolean
+          description: Informa se a pendencia esta resolvida ou não
+          example: true
+        createdAt:
+          type: string
+          description: Data de criação da pendencia cirurgica
+          example: 2023-01-01T00:00:00
+        createdByUserCode:
+          type: string
+          description: Código do usuário que criou  pendencia cirurgica
+          example: C10950
+        solvedAt:
+          type: string
+          description: Data de solução da pendencia cirurgica
+          example: 2023-01-01T00:00:00
+        solvedByUserCode:
+          type: string
+          description: Código do usuário que solucinou a pendencia cirurgica
+          example: C10950
+    CreateSurgicalPendency:
+      type: object
+      properties:
+        surgicalOrderId:
+          type: integer
+          format: int32
+          description: Identificador do pedido cirurgico da pendencia cirurgica
+          example: 1
+        number:
+          type: integer
+          format: int32
+          description: Numero da pendencia cirurgica
+          example: 1
+        description:
+          type: string
+          description: Descrição da pendencia cirurgica
+          example: PACIENTE CIENTE EM ENCAMINHAR RELATORIO NUTRICIONISTA COM O TEMPO DE OBESIDADE E TEMPO DE TRATAMENTO CLINICO
+        observation:
+          type: string
+          description: Data de criação da pendencia cirurgica
+          example: SOLUCIONADO
+        isSolved:
+          type: boolean
+          description: Informa se a pendencia esta resolvida ou não
+          example: true
+        createdAt:
+          type: string
+          description: Data de criação da pendencia cirurgica
+          example: 2023-01-01T00:00:00
+        createdByUserCode:
+          type: string
+          description: Código do usuário que criou  pendencia cirurgica
+          example: C10950
+        solvedAt:
+          type: string
+          description: Data de solução da pendencia cirurgica
+          example: 2023-01-01T00:00:00
+        solvedByUserCode:
+          type: string
+          description: Código do usuário que solucinou a pendencia cirurgica
+          example: C10950
+
+    PaginatedSurgicalPendency:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SurgicalPendency'
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+    SurgicalOrder:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Identificador do aviso cirúrgico
+          example: 1
+        createdAt:
+          type: string
+          description: Data de criação do aviso cirúrgico
+          example: 2023-01-01T00:00:00
+        patientName:
+          type: string
+          description: Nome do centro cirurgico
+          example: Yuji Itadori
+        cancelledBy:
+          type: integer
+          format: int32
+          description: Identificador do usuário que cancelou o aviso cirúrgico
+          example: 1
+        patientPhone:
+          type: string
+          description: Telefone do paciente
+          example: 11111111
+        patientSex:
+          type: string
+          description: Telefone do paciente
+          example: M
+          enum:
+            - M
+            - F
+            - I
+            - G
+        patientId:
+          type: integer
+          format: int32
+          description: Identificador do paciente
+          example: 1
+        surgicalCenterId:
+          type: integer
+          format: int32
+          description: Identificador do centro cirúrgico
+          example: 1
+        surgeryNature:
+          type: string
+          description: Natureza do aviso cirúrgico
+          example: L
+          enum:
+            - L
+            - P
+            - E
+        surgeryStatus:
+          type: string
+          description: Status do aviso cirúrgico
+          example: A
+          enum:
+            - A
+            - R
+            - C
+            - G
+            - T
+            - P
+        userId:
+          type: integer
+          format: int32
+          description: Identificador do usuário
+          example: 1
+        hospitalId:
+          type: integer
+          format: int32
+          description: Identificador do hospital
+          example: 1
+        altered:
+          type: boolean
+          description: Aviso cirúrgico foi editado?
+          example: false
+        robotic:
+          type: boolean
+          description: Utiliza técnica robótica?
+          example: false
+        releaseSurgicalOrder:
+          type: boolean
+          description: Libera aviso cirurgia?
+          example: false
+        sendSms:
+          type: boolean
+          description: Envia SMS?
+          example: false
+        extraBlood:
+          type: boolean
+          description: Precisa de reserva de sangue?
+          example: false
+        useFreezing:
+          type: boolean
+          description: Utiliza congelação?
+          example: false
+        priority:
+          type: string
+          description: Prioridade aviso cirúrgico
+          example: A
+          enum:
+            - B
+            - M
+            - A
+        releasedHospitalization:
+          type: string
+          description: Hospitalização liberada
+          example: A
+          enum:
+            - L
+            - R
+            - A
+        releasedOpme:
+          type: string
+          description: OPME liberado
+          example: A
+          enum:
+            - L
+            - R
+            - A
+        healthInsuranceAuthorized:
+          type: boolean
+          description: Autorizado no convênio?
+          example: false
+        cancellationReason:
+          type: string
+          description: Motivo do cancelamento
+          example: A
+        cancelledAt:
+          type: string
+          description: Data do cancelamento
+          example: 2023-01-01T00:00:00
+        hospitalizationForecastDate:
+          type: string
+          description: Previsão de internação
+          example: 2023-01-01T00:00:00
+        medicalDischargeDate:
+          type: string
+          description: Previsão de alta
+          example: 2023-01-01T00:00:00
+        hospitalizationDate:
+          type: string
+          description: Previsão de internação
+          example: 2023-01-01T00:00:00
+        preSchedulingDate:
+          type: string
+          description: Data do pré agendamento
+          example: 2023-01-01T00:00:00
+        surgeryType:
+          type: string
+          description: Técnica utilizada
+          example: V
+          enum:
+            - V
+            - C
+        logWorkflow:
+          $ref: '#/components/schemas/LogWorkflow'
+        surgerySchedule:
+          type: array
+          items:
+            $ref: '#/components/schemas/SurgerySchedule'
+        orderSurgical:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderSurgical'
+        surgeryDocuments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SurgeryDocumentWithBase64'
+        guide:
+          type: array
+          items:
+            $ref: '#/components/schemas/SurgicalOrderGuide'
+    LogWorkflow:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Identificador do log
+          example: 1
+        type:
+          type: string
+          description: Tipo
+          example: V
+          enum:
+            - PA
+            - RE
+            - CO
+            - AC
+            - SG
+            - RA
+            - CP
+            - CA
+        createdAt:
+          type: string
+          description: Data de criação do log
+          example: 2023-01-01T00:00:00
+        pendencyDescription:
+          type: string
+          description: Descrição da pendência
+        surgicalOrderId:
+          type: integer
+          format: int32
+          description: Identificador do aviso cirúrgico
+          example: 1
+        userId:
+          type: integer
+          format: int32
+          description: Identificador do usuário
+          example: 1
+        userName:
+          type: string
+          description: Nome do usuário
+          example: Yuji Itadori
+    SurgerySchedule:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Identificador do agendamento cirúrgico
+          example: 1
+        surgeryScheduleBegin:
+          type: string
+          description: Data de início do agendamento cirúrgico
+          example: 2023-01-01T00:00:00
+        surgeryScheduleEnd:
+          type: string
+          description: Data de término do agendamento cirúrgico
+          example: 2023-01-01T00:00:00
+        surgicalOrderId:
+          type: integer
+          format: int32
+          description: Identificador do aviso cirúrgico
+          example: 1
+    OrderSurgical:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Identificador da cirurgia aviso
+          example: 1
+        surgeryId:
+          type: integer
+          format: int32
+          description: Identificador da cirurgia
+          example: 1
+        isMain:
+          type: boolean
+          description: É a principal?
+          example: false
+        surgeryNature:
+          type: string
+          description: Natureza da cirurgia
+          example: L
+          enum:
+            - L
+            - P
+            - E
+        handedness:
+          type: string
+          description: Lateralidade da cirurgia
+          example: null
+        surgicalOrderId:
+          type: integer
+          format: int32
+          description: Identificador do aviso cirúrgico
+          example: 1
+        surgicalProvider:
+          type: array
+          items:
+            $ref: '#/components/schemas/SurgicalProvider'
+        allSurgicalProvider:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllSurgicalProvider'
+    SurgicalProvider:
+      type: object
+      properties:
+        medicalActivityId:
+          type: integer
+          format: int32
+          description: Identificador da atividade médica
+          example: 1
+        providerId:
+          type: integer
+          format: int32
+          description: Identificador do provedor
+          example: 1
+        surgeryId:
+          type: integer
+          format: int32
+          description: Identificador da cirurgia
+          example: 1
+        providerName:
+          type: string
+          description: Nome do prestador
+          example: Giyu Tomioka
+        isMain:
+          type: boolean
+          description: É a principal?
+          example: false
+        surgicalOrderId:
+          type: integer
+          format: int32
+          description: Identificador do aviso cirúrgico
+          example: 1
+        orderSurgicalId:
+          type: integer
+          format: int32
+          description: Identificador do cirurgia aviso
+          example: 1
+    AllSurgicalProvider:
+      allOf:
+        - $ref: '#/components/schemas/SurgicalProvider'
+      type: object
+      properties:
+        medicalActivityDescription:
+          type: string
+          description: Descrição da atividade médica
+          example: Cirurgião
+    SurgicalOrderGuide:
+      type: object
+      properties:
+        guideNumber:
+          type: integer
+          format: int32
+          description: Número da guia
+          example: 12345
+        guideType:
+          type: string
+          description: Tipo da guia
+          example: I
+        patientId:
+          type: integer
+          format: int32
+          description: Identificador do paciente
+          example: 1
+        healthInsuranceId:
+          type: integer
+          format: int32
+          description: Identificador do convênio
+          example: 1
+        haveObservation:
+          type: boolean
+          description: Tem observação?
+          example: false
+        status:
+          type: string
+          description: Status da guia
+          example: P
+        isEmergencial:
+          type: boolean
+          description: É emergencial?
+          example: false
+        isUrgent:
+          type: boolean
+          description: É urgente?
+          example: false
+        isReviewed:
+          type: boolean
+          description: É revisado?
+          example: false
+        guideAuthorizationAnswer:
+          type: string
+          description: Resposta da autorização da guia
+          example: H
+        observation:
+          type: string
+          description: Observação da guia
+          example: H
+        itGuide:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItGuide'
+    ItGuide:
+      type: object
+      properties:
+        proFatId:
+          type: integer
+          format: int32
+          description: Identificador do pro fat
+          example: 1
+        authorizedAmount:
+          type: integer
+          format: int32
+          description: Quantidade autorizada
+          example: 1
+        observation:
+          type: string
+          description: Observação da guia
+          example: H
+        procedure:
+          type: string
+          description: Procedimento
+          example: COLOCACAO DE BANDA GASTRICA POR VIDEOLA
+        status:
+          type: string
+          description: Status da guia
+          example: P
+        userId:
+          type: integer
+          format: int32
+          description: Identificador do usuário
+          example: 1
+    CreateLogWorkflow:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Tipo
+          example: V
+          enum:
+            - PA
+            - RE
+            - CO
+            - AC
+            - SG
+            - RA
+            - CP
+            - CA
+        createdAt:
+          type: string
+          description: Data de criação do log
+          example: 2023-01-01T00:00:00
+        pendencyDescription:
+          type: string
+          description: Descrição da pendência
+        surgicalOrderId:
+          type: integer
+          format: int32
+          description: Identificador do aviso cirúrgico
+          example: 1
+        userId:
+          type: integer
+          format: int32
+          description: Identificador do usuário
+          example: 1
+        userName:
+          type: string
+          description: Nome do usuário
+          example: Yuji Itadori
+    PaginatedSurgicalOrder:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SurgicalOrder'
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+    CreateSurgicalOrder:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: Data de criação do aviso cirúrgico
+          example: 2023-01-01T00:00:00
+        patientName:
+          type: string
+          description: Nome do centro cirurgico
+          example: Yuji Itadori
+        cancelledBy:
+          type: integer
+          format: int32
+          description: Identificador do usuário que cancelou o aviso cirúrgico
+          example: 1
+        patientPhone:
+          type: string
+          description: Telefone do paciente
+          example: 11111111
+        patientSex:
+          type: string
+          description: Telefone do paciente
+          example: M
+          enum:
+            - M
+            - F
+            - I
+            - G
+        patientId:
+          type: integer
+          format: int32
+          description: Identificador do paciente
+          example: 1
+        surgicalCenterId:
+          type: integer
+          format: int32
+          description: Identificador do centro cirúrgico
+          example: 1
+        surgeryNature:
+          type: string
+          description: Natureza do aviso cirúrgico
+          example: L
+          enum:
+            - L
+            - P
+            - E
+        surgeryStatus:
+          type: string
+          description: Status do aviso cirúrgico
+          example: A
+          enum:
+            - A
+            - R
+            - C
+            - G
+            - T
+            - P
+        userId:
+          type: integer
+          format: int32
+          description: Identificador do usuário
+          example: 1
+        hospitalId:
+          type: integer
+          format: int32
+          description: Identificador do hospital
+          example: 1
+        altered:
+          type: boolean
+          description: Aviso cirúrgico foi editado?
+          example: false
+        robotic:
+          type: boolean
+          description: Utiliza técnica robótica?
+          example: false
+        releaseSurgicalOrder:
+          type: boolean
+          description: Libera aviso cirurgia?
+          example: false
+        sendSms:
+          type: boolean
+          description: Envia SMS?
+          example: false
+        extraBlood:
+          type: boolean
+          description: Precisa de reserva de sangue?
+          example: false
+        useFreezing:
+          type: boolean
+          description: Utiliza congelação?
+          example: false
+        priority:
+          type: string
+          description: Prioridade aviso cirúrgico
+          example: A
+          enum:
+            - B
+            - M
+            - A
+        releasedHospitalization:
+          type: string
+          description: Hospitalização liberada
+          example: A
+          enum:
+            - L
+            - R
+            - A
+        releasedOpme:
+          type: string
+          description: OPME liberado
+          example: A
+          enum:
+            - L
+            - R
+            - A
+        healthInsuranceAuthorized:
+          type: boolean
+          description: Autorizado no convênio?
+          example: false
+        cancellationReason:
+          type: string
+          description: Motivo do cancelamento
+          example: A
+        cancelledAt:
+          type: string
+          description: Data do cancelamento
+          example: 2023-01-01T00:00:00
+        hospitalizationForecastDate:
+          type: string
+          description: Previsão de internação
+          example: 2023-01-01T00:00:00
+        medicalDischargeDate:
+          type: string
+          description: Previsão de alta
+          example: 2023-01-01T00:00:00
+        hospitalizationDate:
+          type: string
+          description: Previsão de internação
+          example: 2023-01-01T00:00:00
+        preSchedulingDate:
+          type: string
+          description: Data do pré agendamento
+          example: 2023-01-01T00:00:00
+        surgeryType:
+          type: string
+          description: Técnica utilizada
+          example: V
+          enum:
+            - V
+            - C
+    SurgeryDocumentType:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Identificador do tipo de documento da cirurgia
+          example: 1
+        description:
+          type: string
+          description: Descrição do tipo de documento da cirurgia
+          example: Documento do paciente
+        isRequired:
+          type: boolean
+          description: Tipo de documento da cirurgia é obrigatório?
+          example: true
+        hospitalId:
+          type: number
+          description: Identificador do hospital
+          example: 1
+    ArrayOfSurgeryDocumentType:
+      type: array
+      items:
+        $ref: '#/components/schemas/SurgeryDocumentType'
+    SurgeryDocumentWithoutBase64:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Identificador do documento da cirurgia
+          example: 644362
+        extension:
+          type: string
+          description: Extensão do arquivo
+          example: png
+        filename:
+          type: string
+          description: Nome do arquivo
+          example: image.png
+        userId:
+          type: string
+          description: Identificador do usuário cadastrando o arquivo
+          example: C4444
+        sendedAt:
+          type: string
+          description: Data de envio do arquivo
+          example: 2023-01-01T00:00:00
+        surgeryDocumentTypeId:
+          type: number
+          description: Identificador do tipo de documento da cirurgia
+          example: 1
+        surgeryDocumentType:
+          $ref: '#/components/schemas/SurgeryDocumentType'
+        surgicalOrderId:
+          type: number
+          description: Identificador do aviso cirúrgico
+          example: 651223
+    SurgeryDocumentWithBase64:
+      allOf:
+        - $ref: '#/components/schemas/SurgeryDocumentWithoutBase64'
+      type: object
+      properties:
+        base64:
+          type: string
+          description: Base64 do arquivo
+          example: iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABp0lEQVQ4T6XTvUoDQRAG4C8JQgQ
+    CreateSurgeryDocument:
+      type: object
+      properties:
+        filename:
+          type: string
+          description: Nome do arquivo
+          example: image.png
+        extension:
+          type: string
+          description: Extensão do arquivo
+          example: png
+        base64:
+          type: string
+          description: Base64 do arquivo
+          example: iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABp0lEQVQ4T6XTvUoDQRAG4C8JQgQ
+        userId:
+          type: string
+          description: Identificador do usuário cadastrando o arquivo
+          example: C4444
+        sendedAt:
+          type: string
+          description: Data de envio do arquivo
+          example: 2023-01-01T00:00:00
+        surgeryDocumentTypeId:
+          type: number
+          description: Identificador do tipo de documento da cirurgia
+          example: 1
+        surgicalOrderId:
+          type: number
+          description: Identificador do aviso cirúrgico
+          example: 651223
+    SurgeryStatusEnum:
+      type: string
+      description: Status da cirurgia
+      example: 'Agendado'
+      enum:
+        - 'Agendado'
+        - 'Check-in'
+        - 'Em Transporte'
+        - 'Paciente na Porta do Bloco'
+        - 'Admitido/Em Sala'
+        - 'Em Recuperação'
+        - 'Liberado'
+    ChangeSurgeryStatus:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/SurgeryStatusEnum'
+        surgery_id:
+          type: number
+          description: Id da cirurgia
+          example: 123456
+    SurgicalOrderStatusEnum:
+      type: string
+      description: "Status do pedido de cirurgia <br /> PA = 'Pré-agendamento cirúrgico', <br /> RE = 'Revisão da cirurgia', <br /> CO = 'Cotação dos OPME', <br /> AC = 'Aguardando retorno da cotação do OPME', <br /> SG = 'Solicitação de autorização das Guias', <br /> RA = 'Retorno da autorização', <br /> CP = 'Confirmação dos Pré-agendamentos que não possuem reservas de sala', <br /> CA = 'Cancelamento de Agendamento', <br /> A = 'Em aviso', <br /> R = 'Realizada', <br /> C = 'Cancelada', <br /> G = 'Agendada', <br /> T = 'Controle de checagem', <br /> P = 'Pre-Agendamento', <br /> Agendado = 'Agendado'"
+      example: 'PA'
+      enum:
+        - 'PA'
+        - 'RE'
+        - 'CO'
+        - 'AC'
+        - 'SG'
+        - 'RA'
+        - 'CP'
+        - 'CA'
+        - 'A'
+        - 'R'
+        - 'C'
+        - 'G'
+        - 'T'
+        - 'P'
+        - 'Agendado'
+    ChangeSurgicalOrderStatus:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/SurgicalOrderStatusEnum'
+        surgical_order_id:
+          type: number
+          description: Id do pedido da cirurgia
+          example: 123456
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      xml:
+        name: '##default'
+
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
+  examples:
+    SurgeryDocumentWithoutBase64:
+      summary: Exemplo de retorno de um documento cirurgico sem base64
+      value:
+        id: 644362
+        filename: image.png
+        extension: png
+        userId: C4444
+        sendedAt: 2023-01-01T00:00:00
+        surgeryDocumentTypeId: 1
+        surgeryDocumentType:
+          id: 1
+          description: Documento do paciente
+          isRequired: true
+          hospitalId: 1
+        surgicalOrderId: 651223
+    ArrayOfSurgeryDocumentWithoutBase64:
+      value:
+        - id: 644362
+          filename: image.png
+          extension: png
+          userId: C4444
+          sendedAt: 2023-01-01T00:00:00
+          surgeryDocumentTypeId: 1
+          surgeryDocumentType:
+            id: 1
+            description: Documento do paciente
+            isRequired: true
+            hospitalId: 1
+          surgicalOrderId: 651223
+    ArrayOfSurgeryDocumentWithBase64:
+      value:
+        - id: 644362
+          filename: image.png
+          extension: png
+          userId: C4444
+          sendedAt: 2023-01-01T00:00:00
+          surgeryDocumentTypeId: 1
+          surgeryDocumentType:
+            id: 1
+            description: Documento do paciente
+            isRequired: true
+            hospitalId: 1
+          surgicalOrderId: 651223
+          base64: iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABp0lEQVQ4T6XTvUoDQRAG4C8JQgQ
+    SurgeryDocumentWithBase64:
+      summary: Exemplo de retorno de um documento cirurgico com base64
+      value:
+        id: 644362
+        filename: image.png
+        extension: png
+        userId: C4444
+        sendedAt: 2023-01-01T00:00:00
+        surgeryDocumentTypeId: 1
+        surgeryDocumentType:
+          id: 1
+          description: Documento do paciente
+          isRequired: true
+          hospitalId: 1
+        surgicalOrderId: 651223
+        base64: iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABp0lEQVQ4T6XTvUoDQRAG4C8JQgQ
